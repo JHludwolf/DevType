@@ -3,52 +3,78 @@ import "./App.css";
 
 function App() {
 	//const text = 'const getFormatedText = () => {\n\tconsole.log("Hello World!);\n}';
-  const text = 'Hola Mundo desde React.js!';
+	const text = [
+		`const handleTextChange = (e) => {`,
+		`console.log("Hello World!);`,
+		`}`,
+	];
 	const [input, setInput] = useState("");
 
 	const handleTextChange = (e) => {
-		if (e.target.value === text.substring(0, text.length - 1)) {
-			setInput((prevState) =>
-				prevState.substring(0, prevState.length - 1)
-			);
-		} else {
-			setInput(
-				(prevState) => prevState + e.target.value.replace(text, "")
-			);
-		}
-		console.log(input);
+		setInput(e.target.value);
 	};
 
-  const getTextWithSpacing = () => {
-    return text.replace(/\n/g, '<br/>').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-  }
-
 	const getFormatedText = () => {
+    const inputLines = input.split("\n");
+		const numberOfNewlines = inputLines.length - 1;
+
 		return (
 			<>
-				{input.split("").map((char, index) => {
-					if (char === text[index]) {
-						return <span key={`letter-${index}`} style={{ color: "#A78BFA" }}>{char}</span>;
-					} else {
-						return (
-							<span key={`letter-${index}`} style={{ backgroundColor: "#EF4444" }}>
-								{text[index]}
+				{text.map((line, idx) => (
+					<p key={`line-${idx}`}>
+						<>
+							{inputLines[idx] ? (
+								inputLines[idx].split("").map((char, index) => {
+									if (char === line[index]) {
+										return (
+											<span
+												key={`letter-${index}`}
+												style={{ color: "#A78BFA" }}
+											>
+												{char}
+											</span>
+										);
+									} else {
+										return (
+											<span
+												key={`letter-${index}`}
+												style={{
+													backgroundColor: "#EF4444",
+												}}
+											>
+												{line[index]}
+											</span>
+										);
+									}
+								})
+							) : (
+								<></>
+							)}
+							{/*<span style={{ color: "#A78BFA" }}>{input.substring(0, input.length)}</span>*/}
+							{idx === numberOfNewlines && (
+								<span
+									style={{
+										color: "B8B8B8",
+										backgroundColor: "rgb(55, 65, 81)",
+									}}
+								>
+									{line.substring(
+										inputLines[idx].length,
+										inputLines[idx].length + 1
+									)}
+								</span>
+							)}
+							<span style={{ color: "#B8B8B8" }}>
+								{line.substring(
+									(inputLines[idx]
+										? inputLines[idx].length
+										: 0) +
+										(idx === numberOfNewlines ? 1 : 0)
+								)}
 							</span>
-						);
-					}
-				})}
-				{/*<span style={{ color: "#A78BFA" }}>{input.substring(0, input.length)}</span>*/}
-				<span
-					style={{
-						color: "B8B8B8",
-						backgroundColor: "rgb(55, 65, 81)",
-					}}
-				>
-					{text.substring(input.length, input.length + 1)}
-				</span>
-				<span style={{ color: "#B8B8B8" }}>
-					{text.substring(input.length + 1)}
-				</span>
+						</>
+					</p>
+				))}
 			</>
 		);
 	};
@@ -57,7 +83,7 @@ function App() {
 		<div className="app-div">
 			<div className="text-editor-div">
 				<textarea
-					value={text}
+					value={input}
 					onChange={handleTextChange}
 					autoFocus
 					spellCheck="false"
