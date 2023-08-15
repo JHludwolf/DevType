@@ -82,6 +82,10 @@ textarea {
     font-size: 26px;
 }
 
+.editor-line {
+    word-break: break-all;
+}
+
 .enter-icon-span {
     padding-left: 1rem;
 }

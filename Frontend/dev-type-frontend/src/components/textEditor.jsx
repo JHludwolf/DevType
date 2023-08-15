@@ -2,16 +2,8 @@ import React, { useState } from "react";
 import "../style/home/textEditor.css";
 import { FaArrowTurnDown } from "react-icons/fa6";
 
-const TextEditor = () => {
-	//const text = 'const getFormatedText = () => {\n\tconsole.log("Hello World!);\n}';
-	const text = [
-		`const handleTextChange = (e) => {`,
-		`\tconsole.log("Hello World!");`,
-		`\tinputLines[idx].split("").map((char, index) => {`,
-		`\t\treturn (<div></div>);`,
-		`\t});`,
-		`}`,
-	];
+const TextEditor = ({ text }) => {
+	
 	const [input, setInput] = useState("");
 	const [colorIndex, setColorIndex] = useState(2);
 
@@ -42,6 +34,9 @@ const TextEditor = () => {
 
 	const handleTextChange = (e) => {
 		setInput(e.target.value);
+
+		console.log(text.join("\n"));
+		console.log(e.target.value);
 	};
 
 	const handleKeyDown = (event) => {
@@ -74,18 +69,16 @@ const TextEditor = () => {
 			<>
 				{text.map((line, idx) => {
 					let cleanLine = line.replaceAll("\t", "");
+
 					const cursorAtEndOfLine = () => {
-						if (inputLines[idx]) {
-							if(idx === numberOfNewlines) {
-								return inputLines[idx].length === cleanLine.length;
-							}
+						if (inputLines[idx] && idx === numberOfNewlines) {
+							return inputLines[idx].length === cleanLine.length;
 						}
-						
 						return false;
 					};
 
 					return (
-						<p key={`line-${idx}`}>
+						<p key={`line-${idx}`} className="editor-line">
 							<>
 								{idx !== 0 ? getTabs(line) : <></>}
 								{inputLines[idx] ? (
@@ -129,7 +122,13 @@ const TextEditor = () => {
 											(idx === numberOfNewlines ? 1 : 0)
 									)}
 								</span>
-								{cursorAtEndOfLine() ? <span className="enter-icon-span"><FaArrowTurnDown className="enter-icon"/></span> : <></>}
+								{cursorAtEndOfLine() ? (
+									<span className="enter-icon-span">
+										<FaArrowTurnDown className="enter-icon" />
+									</span>
+								) : (
+									<></>
+								)}
 							</>
 						</p>
 					);
