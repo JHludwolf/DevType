@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../style/home/textEditor.css";
+import { FaArrowTurnDown } from "react-icons/fa6";
 
 const TextEditor = () => {
 	//const text = 'const getFormatedText = () => {\n\tconsole.log("Hello World!);\n}';
@@ -45,7 +46,12 @@ const TextEditor = () => {
 
 	const handleKeyDown = (event) => {
 		// Prevent arrow key navigation
-		if (event.key === "ArrowLeft" || event.key === "ArrowRight" || event.key === "ArrowUp" || event.key === "ArrowDown") {
+		if (
+			event.key === "ArrowLeft" ||
+			event.key === "ArrowRight" ||
+			event.key === "ArrowUp" ||
+			event.key === "ArrowDown"
+		) {
 			event.preventDefault();
 		}
 	};
@@ -68,6 +74,15 @@ const TextEditor = () => {
 			<>
 				{text.map((line, idx) => {
 					let cleanLine = line.replaceAll("\t", "");
+					const cursorAtEndOfLine = () => {
+						if (inputLines[idx]) {
+							if(idx === numberOfNewlines) {
+								return inputLines[idx].length === cleanLine.length;
+							}
+						}
+						
+						return false;
+					};
 
 					return (
 						<p key={`line-${idx}`}>
@@ -114,6 +129,7 @@ const TextEditor = () => {
 											(idx === numberOfNewlines ? 1 : 0)
 									)}
 								</span>
+								{cursorAtEndOfLine() ? <span className="enter-icon-span"><FaArrowTurnDown className="enter-icon"/></span> : <></>}
 							</>
 						</p>
 					);
@@ -123,11 +139,15 @@ const TextEditor = () => {
 	};
 
 	return (
-		<div className="app-div">
-			<div className="text-editor-div">
-				<textarea value={input} onChange={handleTextChange} onKeyDown={handleKeyDown} autoFocus spellCheck="false" />
-				<div className="text-div">{getFormatedText()}</div>
-			</div>
+		<div className="text-editor-div">
+			<textarea
+				value={input}
+				onChange={handleTextChange}
+				onKeyDown={handleKeyDown}
+				autoFocus
+				spellCheck="false"
+			/>
+			<div className="text-div">{getFormatedText()}</div>
 		</div>
 	);
 };

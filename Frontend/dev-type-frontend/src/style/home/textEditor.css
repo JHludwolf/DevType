@@ -1,19 +1,61 @@
-.app-div {
+/* TEXT EDIT WINDOW */
+
+.text-edit-window {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
 }
+
+/* TEXT EDIT WINDOW HEADER */
+
+.text-edit-window-header {
+    width: 100%;
+    height: 50px;
+    background-color: #242427;
+    border-radius: 20px 20px 0 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-edit-window-header-buttons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    padding-left: 1rem;
+}
+
+.text-edit-window-header-button {
+    border-radius: 100%;
+    width: 12px;
+    height: 12px;
+    background-color: #6c6c6c;
+}
+
+.text-edit-window-header-title {
+    font-size: 16px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', 'monospace';
+    font-style: italic;
+    color: #6c6c6c;
+    font-weight: 500;
+    text-align: center;
+
+}
+
+/* TEXT EDIT */
 
 .text-editor-div {
     width: 1200px;
     height: 426px;
     background-color: #242427;
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;
 }
 
-.app-div textarea {
+textarea {
     all: unset;
     position: absolute;
 
@@ -34,8 +76,21 @@
 }
 
 .text-div {
-    padding: 2rem;
+    padding: 0 2rem 2rem 2rem;
     color: aliceblue;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
     font-size: 26px;
+}
+
+.enter-icon-span {
+    padding-left: 1rem;
+}
+
+.enter-icon {
+    /* Rotate the react-icon 90 degrees*/
+    font-size: 24px;
+    transform: rotate(90deg);
+    color: #B8B8B8;
+    
+    
 }

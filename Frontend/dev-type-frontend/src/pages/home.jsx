@@ -1,12 +1,12 @@
 import React from 'react'
-import TextEditor from '../components/textEditor'
+import TextEditorWindow from '../components/textEditorWindow'
 import '../style/home/home.css'
 
 const Home = () => {
   return (
-    <div>
+    <div className="home-div">
       <h1 className='home-h1'>DevType</h1>
-      <TextEditor />
+      <TextEditorWindow />
     </div>
   )
 }
