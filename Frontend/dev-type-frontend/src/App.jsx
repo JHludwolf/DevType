@@ -1,35 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+	//const text = 'const getFormatedText = () => {\n\tconsole.log("Hello World!);\n}';
+  const text = 'Hola Mundo desde React.js!';
+	const [input, setInput] = useState("");
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	const handleTextChange = (e) => {
+		if (e.target.value === text.substring(0, text.length - 1)) {
+			setInput((prevState) =>
+				prevState.substring(0, prevState.length - 1)
+			);
+		} else {
+			setInput(
+				(prevState) => prevState + e.target.value.replace(text, "")
+			);
+		}
+		console.log(input);
+	};
+
+  const getTextWithSpacing = () => {
+    return text.replace(/\n/g, '<br/>').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+  }
+
+	const getFormatedText = () => {
+		return (
+			<>
+				{input.split("").map((char, index) => {
+					if (char === text[index]) {
+						return <span key={`letter-${index}`} style={{ color: "#A78BFA" }}>{char}</span>;
+					} else {
+						return (
+							<span key={`letter-${index}`} style={{ backgroundColor: "#EF4444" }}>
+								{text[index]}
+							</span>
+						);
+					}
+				})}
+				{/*<span style={{ color: "#A78BFA" }}>{input.substring(0, input.length)}</span>*/}
+				<span
+					style={{
+						color: "B8B8B8",
+						backgroundColor: "rgb(55, 65, 81)",
+					}}
+				>
+					{text.substring(input.length, input.length + 1)}
+				</span>
+				<span style={{ color: "#B8B8B8" }}>
+					{text.substring(input.length + 1)}
+				</span>
+			</>
+		);
+	};
+
+	return (
+		<div className="app-div">
+			<div className="text-editor-div">
+				<textarea
+					value={text}
+					onChange={handleTextChange}
+					autoFocus
+					spellCheck="false"
+				/>
+
+				<div className="text-div">{getFormatedText()}</div>
+			</div>
+		</div>
+	);
 }
 
-export default App
+export default App;
