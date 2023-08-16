@@ -1,36 +1,12 @@
 import React, { useState } from "react";
 import "../style/home/textEditor.css";
 import { FaArrowTurnDown } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 const TextEditor = ({ text }) => {
 	
 	const [input, setInput] = useState("");
-	const [colorIndex, setColorIndex] = useState(2);
-
-	// An array with three  aestheric color palletes for a typewriter theme
-	const colors = [
-		{
-			background: "#1F2937",
-			text: "#F3F4F6",
-			accent: "#A78BFA",
-			error: "#EF4444",
-			secondary: "#B8B8B8",
-		},
-		{
-			background: "#1F2937",
-			text: "#F3F4F6",
-			accent: "#F59E0B",
-			error: "#EF4444",
-			secondary: "#B8B8B8",
-		},
-		{
-			background: "#1F2937",
-			text: "#F3F4F6",
-			accent: "#10B981",
-			error: "#EF4444",
-			secondary: "#B8B8B8",
-		},
-	];
+	const colors = useSelector((state) => state.theme.colors);
 
 	const handleTextChange = (e) => {
 		setInput(e.target.value);
@@ -87,7 +63,7 @@ const TextEditor = ({ text }) => {
 											return (
 												<span
 													key={`letter-${index}`}
-													style={{ color: colors[colorIndex].accent }}
+													style={{ color: colors.accent }}
 												>
 													{char}
 												</span>
@@ -96,7 +72,7 @@ const TextEditor = ({ text }) => {
 											return (
 												<span
 													key={`letter-${index}`}
-													style={{ backgroundColor: colors[colorIndex].error }}
+													style={{ color: colors.text, backgroundColor: colors.error }}
 												>
 													{cleanLine[index]}
 												</span>
@@ -109,14 +85,14 @@ const TextEditor = ({ text }) => {
 								{idx === numberOfNewlines && (
 									<span
 										style={{
-											color: colors[colorIndex].secondary,
-											backgroundColor: colors[colorIndex].text,
+											color: colors.text,
+											backgroundColor: colors.cursor,
 										}}
 									>
 										{cleanLine.substring(inputLines[idx].length, inputLines[idx].length + 1)}
 									</span>
 								)}
-								<span style={{ color: colors[colorIndex].secondary }}>
+								<span style={{ color: colors.text }}>
 									{cleanLine.substring(
 										(inputLines[idx] ? inputLines[idx].length : 0) +
 											(idx === numberOfNewlines ? 1 : 0)
@@ -124,7 +100,7 @@ const TextEditor = ({ text }) => {
 								</span>
 								{cursorAtEndOfLine() ? (
 									<span className="enter-icon-span">
-										<FaArrowTurnDown className="enter-icon" />
+										<FaArrowTurnDown className="enter-icon" style={{color: colors.accent}}/>
 									</span>
 								) : (
 									<></>
@@ -138,12 +114,14 @@ const TextEditor = ({ text }) => {
 	};
 
 	return (
-		<div className="text-editor-div">
+		<div className="text-editor-div" style={{backgroundColor: colors.window}}>
 			<textarea
 				value={input}
 				onChange={handleTextChange}
 				onKeyDown={handleKeyDown}
 				autoFocus
+				autoComplete="off"
+				onBlur={(e) => e.target.focus()}
 				spellCheck="false"
 			/>
 			<div className="text-div">{getFormatedText()}</div>

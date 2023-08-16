@@ -1,53 +1,69 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TextEditor from "./textEditor";
+import { RiSettings5Fill } from "react-icons/ri";
+import SettingsModal from "./settingsModal";
+import { useSelector } from "react-redux";
 
-const TextEditorWindow = () => {
-	
-    const sampleTexts = [
-		[
-			`const handleTextChange = (e) => {`,
-			`\tconsole.log("Hello World!");`,
-			`\tinputLines[idx].split("").map((char, index) => {`,
-			`\t\treturn (<div></div>);`,
-			`\t});`,
-			`}`,
-		],
-		[
-			`let text = "Hello World!";`,
-			`console.log(text);`,
-			`for (let i = 0; i < text.length; i++) {`,
-			`\tconsole.log(text[i]);`,
-			`}`,
-		],
-		[
-			`const getCurrentDolarPrice = async () => {`,
-			`\tconst response = await fetch("https://api.coindesk.com/v1/bpi/currentprice.json");`,
-			`\tconst data = await response.json();`,
-			`\treturn data.bpi.USD.rate;`,
-			`}`,
-		]
-	];
+const TextEditorWindow = ({ text }) => {
+	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+	const colors = useSelector((state) => state.theme.colors);
+
+	const renderOptions = () => {
+		let options = [];
+		for (let i = 8; i <= 46; i += 2) {
+			options.push(<option value={i}>{i}</option>);
+		}
+		return options;
+	};
+
+	const toggleModal = () => {
+		setIsSettingsOpen(!isSettingsOpen);
+	};
 
 	return (
 		<div className="text-edit-window">
-			<div className="text-edit-window-header">
-				<table width={'100%'}>
-					<tr>
-						<td width={'20%'}>
-							<div className="text-edit-window-header-buttons">
-								<div className="text-edit-window-header-button red">.</div>
-								<div className="text-edit-window-header-button yellow">.</div>
-								<div className="text-edit-window-header-button green">.</div>
-							</div>
-						</td>
-						<td  width={'60%'}>
-							<div className="text-edit-window-header-title">src/components/Dashboard/index.jsx</div>
-						</td>
-						<td width={'20%'}></td>
-					</tr>
+			<div className="text-edit-window-header" style={{ backgroundColor: colors.window }}>
+				<table width={"100%"}>
+					<tbody>
+						<tr>
+							<td width={"20%"}>
+								<div className="text-edit-window-header-buttons">
+									<div
+										className="text-edit-window-header-button"
+										style={{ backgroundColor: colors.text }}
+									>
+										.
+									</div>
+									<div
+										className="text-edit-window-header-button"
+										style={{ backgroundColor: colors.text }}
+									>
+										.
+									</div>
+									<div
+										className="text-edit-window-header-button"
+										style={{ backgroundColor: colors.text }}
+									>
+										.
+									</div>
+								</div>
+							</td>
+							<td width={"60%"}>
+								<div className="text-edit-window-header-title" style={{ color: colors.text }}>
+									src/components/Dashboard/index.jsx
+								</div>
+							</td>
+							<td width={"20%"}>
+								<div className="text-edit-window-header-settings" onClick={toggleModal}>
+									<RiSettings5Fill className="settings-icon" style={{ color: colors.text }} />
+								</div>
+							</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
-			<TextEditor text={sampleTexts[2]}/>
+			<TextEditor text={text} />
+			{isSettingsOpen ? <SettingsModal toggleModal={toggleModal} /> : null}
 		</div>
 	);
 };

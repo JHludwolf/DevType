@@ -1,24 +1,36 @@
 body {
     /* Gray background color */
-    background-color: #1c1a1a;
+    margin: 0;
+    padding: 0;
 }
 
 .home-div {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 
 .home-h1 {
-    /*A more elegant font family and a cool red tone*/
     font-family: 'Lobster', cursive;
-    font-size: 3em;
-
+    font-size: 4em;
     text-align: center;
-    margin: 1em;
-    
-    color: #FF6F61;
+    margin: 4rem 0 0 0;
+    padding: 0;
+    line-height: 10px;
+}
+
+.home-h2 {
+    text-align: right;
+    padding-right: 275px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.home-h3 {
+    padding-left: 275px;
+    padding-top: 0;
+    margin-top: 0;
 }
