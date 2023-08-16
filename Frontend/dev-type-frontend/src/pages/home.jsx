@@ -10,12 +10,13 @@ const Home = () => {
 	const colors = useSelector((state) => state.theme.colors);
 
 	//chose a random code
-	const code = sampleCode['python']['general'][Math.floor(Math.random() * sampleCode['javascript']['react'].length)];
+	const codeArray = sampleCode["python"]["general"];
+	const code = codeArray[Math.floor(Math.random() * codeArray.length)];
 
 	return (
 		<div className="home-div" style={{ backgroundColor: colors.background }}>
 			<PageTitle />
-			<TextEditorWindow text={code}/>
+			<TextEditorWindow text={code} />
 		</div>
 	);
 };
