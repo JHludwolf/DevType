@@ -1,0 +1,404 @@
+{
+	"javascript": {
+		"react": [
+			[
+				"const handleTextChange = (e) => {",
+				"\tconsole.log('Hello World!');",
+				"\tinputLines[idx].split('').map((char, index) => {",
+				"\t\treturn (<div></div>);",
+				"\t});",
+				"}"
+			],
+			[
+				"const getCurrentDolarPrice = async () => {",
+				"\tconst response = await fetch('https://api.coindesk.com/v1/bpi/currentprice.json);",
+				"\tconst data = await response.json();",
+				"\treturn data.bpi.USD.rate;",
+				"}"
+			],
+			["const [state, setState] = useState({", "\tname: 'John',", "\tage: 42", "});"],
+			[
+				"let { name, age } = state;",
+				"console.log(name, age);",
+				"// John 42",
+				"setState({ name: 'Jane' });",
+				"({ name, age } = state);",
+				"console.log(name, age);",
+				"// Jane 42"
+			],
+			[
+				"const Counter = ({ count, increment, decrement }) => (",
+				"\t<div>",
+				"\t\t<p>Count: {count}</p>",
+				"\t\t<button onClick={increment}>Increment</button>",
+				"\t\t<button onClick={decrement}>Decrement</button>",
+				"\t</div>",
+				");"
+			],
+			[
+				"const mapStateToProps = state => ({",
+				"\tcount: state.count",
+				"});",
+				"const mapDispatchToProps = dispatch => ({",
+				"\tincrement: () => dispatch({ type: 'INCREMENT' }),",
+				"\tdecrement: () => dispatch({ type: 'DECREMENT' })",
+				"});",
+				"export default connect(mapStateToProps, mapDispatchToProps)(Counter);"
+			],
+			[
+				"const PostList = () => {",
+				"\tconst dispatch = useDispatch();",
+				"\tconst posts = useSelector(state => state.posts.posts);",
+				"\tuseEffect(() => {",
+				"\t\tdispatch(fetchPosts());",
+				"\t}, [dispatch]);",
+				"};",
+				"export default PostList;"
+			],
+			[
+				"import { combineReducers } from 'redux';",
+				"import countReducer from './countReducer';",
+				"import postsReducer from './postsReducer';",
+				"const rootReducer = combineReducers({",
+				"\tcount: countReducer,",
+				"\tposts: postsReducer",
+				"});",
+				"export default rootReducer;"
+			],
+			[
+				"import React from 'react';",
+				"import ReactDOM from 'react-dom';",
+				"import { Provider } from 'react-redux';",
+				"import { createStore } from 'redux';",
+				"import rootReducer from './reducers';",
+				"import App from './App';"
+			],
+			[
+				"const store = createStore(rootReducer);",
+				"ReactDOM.render(",
+				"\t<Provider store={store}>",
+				"\t\t<App />",
+				"\t</Provider>,",
+				"\tdocument.getElementById('root')",
+				");"
+			],
+			[
+				"import axios from 'axios';",
+				"export const fetchPosts = () => async dispatch => {",
+				"\tconst response = await axios.get('https://jsonplaceholder.typicode.com/posts');",
+				"\tdispatch({",
+				"\t\ttype: 'FETCH_POSTS_SUCCESS',",
+				"\t\tpayload: response.data",
+				"\t});",
+				"};"
+			]
+		],
+		"node": [
+			[
+				"const app = express();",
+				"const PORT = 3000;",
+				"app.get('/hello', (req, res) => {",
+				"\tres.json({ message: 'Hello, World!' });",
+				"});",
+				"app.listen(PORT, () => {",
+				"\tconsole.log(`Server is running on port ${PORT}`);",
+				"});"
+			],
+			[
+				"const fs = require('fs');",
+				"const data = 'Hello, Node.js!';",
+				"fs.writeFileSync('output.txt', data);",
+				"console.log('Data written to file.');"
+			],
+			[
+				"const app = express();",
+				"app.use(express.json());",
+				"app.post('/add', (req, res) => {",
+				"\tconst a = req.body.a;",
+				"\tconst b = req.body.b;",
+				"\tconst result = a + b;",
+				"\tres.json({ result });",
+				"});"
+			],
+			[
+				"app.set('view engine', 'ejs');",
+				"app.get('/', (req, res) => {",
+				"\tres.render('index', { message: 'Hello, EJS!' });",
+				"});",
+				"app.listen(3000, () => {",
+				"\tconsole.log(`Server is running on port ${PORT}`);",
+				"});"
+			],
+			[
+				"app.get('/api/user/:userId', (req, res) => {",
+				"\tconst userId = req.params.userId;",
+				"\t// Code to fetch user data from database using userId",
+				"\tconst userData = { id: userId, username: 'john_doe', email: 'john@example.com' };",
+				"\tres.json(userData);",
+				"});"
+			]
+		]
+	},
+	"python": {
+		"general": [
+			[
+				"def calculate_average(numbers):",
+				"\ttotal = sum(numbers)",
+				"\taverage = total / len(numbers)",
+				"\treturn average"
+			],
+			[
+				"class Rectangle:",
+				"\tdef __init__(self, width, height):",
+				"\t\tself.width = width",
+				"\t\tself.height = height",
+				"\tdef area(self):",
+				"\t\treturn self.width * self.height"
+			],
+			["def factorial(n):", "\tif n == 0:", "\t\treturn 1", "\telse:", "\t\treturn n * factorial(n - 1)"],
+			["fruits = ['apple', 'banana', 'cherry', 'date']", "for fruit in fruits:", "\tprint(fruit)"],
+			[
+				"def fibonacci(n):",
+				"\tif n <= 0:",
+				"\t\treturn []",
+				"\tif n == 1:",
+				"\t\treturn [0]",
+				"\tif n == 2:",
+				"\t\treturn [0, 1]",
+				"\tfib = [0, 1]",
+				"\tfor i in range(2, n):",
+				"\t\tfib.append(fib[-1] + fib[-2])",
+				"\treturn fib"
+			]
+		],
+		"backend": [
+			[
+				"from flask import Flask, jsonify",
+				"app = Flask(__name__)",
+				"@app.route('/hello', methods=['GET'])",
+				"def hello_world():",
+				"\treturn jsonify(message='Hello, World!')",
+				"if __name__ == '__main__':",
+				"\tapp.run()"
+			],
+			[
+				"import sqlite3",
+				"conn = sqlite3.connect('mydatabase.db')",
+				"cursor = conn.cursor()",
+				"cursor.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, email TEXT)''')",
+				"conn.commit()",
+				"conn.close()"
+			],
+			[
+				"from flask import Flask, request, jsonify",
+				"app = Flask(__name__)",
+				"@app.route('/add', methods=['POST'])",
+				"def add_numbers():",
+				"\tdata = request.get_json()",
+				"\ta = data['a']",
+				"\tb = data['b']",
+				"\treturn jsonify(result=a + b)"
+			],
+			[
+				"from flask import Flask, render_template",
+				"app = Flask(__name__)",
+				"@app.route('/')",
+				"def index():",
+				"\treturn render_template('index.html')",
+				"if __name__ == '__main__':",
+				"\tapp.run()"
+			],
+			[
+				"from flask import Flask, request, jsonify",
+				"app = Flask(__name__)",
+				"@app.route('/api/user/<int:user_id>', methods=['GET'])",
+				"def get_user(user_id):",
+				"\t# Code to fetch user data from database using user_id",
+				"\tuser_data = {'id': user_id, 'username': 'john_doe', 'email': 'john@example.com'}",
+				"\treturn jsonify(user_data)"
+			]
+		]
+	},
+	"java": {
+		"general": [
+			[
+				"public class Calculator {",
+				"\tpublic static int add(int a, int b) {",
+				"\t\treturn a + b;",
+				"\t}",
+				"\tpublic static int subtract(int a, int b) {",
+				"\t\treturn a - b;",
+				"\t}",
+				"}"
+			],
+			[
+				"public class Student {",
+				"\tprivate String name;",
+				"\tprivate int age;",
+				"\tpublic Student(String name, int age) {",
+				"\t\tthis.name = name;",
+				"\t\tthis.age = age;",
+				"\t}",
+				"}"
+			],
+			[
+				"public class Factorial {",
+				"\tpublic static int calculate(int n) {",
+				"\t\tif (n == 0 || n == 1) {",
+				"\t\t\treturn 1;",
+				"\t\t} else {",
+				"\t\t\treturn n * calculate(n - 1);",
+				"\t\t}",
+				"\t}",
+				"}"
+			],
+			[
+				"public class Main {",
+				"\tpublic static void main(String[] args) {",
+				"\t\tList<String> fruits = new ArrayList<>();",
+				"\t\tfor (String fruit : fruits) {",
+				"\t\t\tSystem.out.println(fruit);",
+				"\t\t}",
+				"\t}",
+				"}"
+			]
+		]
+	},
+	"html": {
+		"general": [
+			[
+				"<!DOCTYPE html>",
+				"<html>",
+				"<head>",
+				"\t<title>My Website</title>",
+				"</head>",
+				"<body>",
+				"\t<h1>Hello, World!</h1>",
+				"\t<p>This is a simple HTML page.</p>",
+				"</body>",
+				"</html>"
+			],
+			[
+				"<!DOCTYPE html>",
+				"<html>",
+				"<head>",
+				"\t<title>Form Example</title>",
+				"</head>",
+				"<body>",
+				"\t<form>",
+				"\t\t<label for=\"name\">Name:</label>",
+				"\t\t<input type=\"text\" id=\"name\" name=\"name\"><br><br>",
+				"\t\t<label for=\"email\">Email:</label>",
+				"\t\t<input type=\"email\" id=\"email\" name=\"email\"><br><br>",
+				"\t\t<input type=\"submit\" value=\"Submit\">",
+				"\t</form>",
+				"</body>",
+				"</html>"
+			],
+			[
+				"<!DOCTYPE html>",
+				"<html>",
+				"<head>",
+				"\t<title>List Example</title>",
+				"</head>",
+				"<body>",
+				"\t<ul>",
+				"\t\t<li>Item 1</li>",
+				"\t\t<li>Item 2</li>",
+				"\t\t<li>Item 3</li>",
+				"\t</ul>",
+				"</body>",
+				"</html>"
+			],
+			[
+				"<!DOCTYPE html>",
+				"<html>",
+				"<head>",
+				"\t<title>Image Example</title>",
+				"</head>",
+				"<body>",
+				"\t<h2>Beautiful Landscape</h2>",
+				"\t<img src=\"landscape.jpg\" alt=\"Beautiful landscape\">",
+				"</body>",
+				"</html>"
+			],
+			[
+				"<!DOCTYPE html>",
+				"<html>",
+				"<head>",
+				"\t<title>Link Example</title>",
+				"</head>",
+				"<body>",
+				"\t<p>Visit <a href=\"https://www.example.com\">Example Website</a> for more information.</p>",
+				"</body>",
+				"</html>"
+			]
+		]
+	},
+	"css": {
+		"general": [
+			[
+				"/* Basic Styling */",
+				"body {",
+				"\tfont-family: Arial, sans-serif;",
+				"\tmargin: 0;",
+				"\tpadding: 0;",
+				"\tbackground-color: #f0f0f0;",
+				"}",
+				"h1 {",
+				"\tcolor: #333;",
+				"}",
+				"p {",
+				"\tcolor: #666;",
+				"}"
+			],
+			[
+				"/* Box Model */",
+				".box {",
+				"\twidth: 200px;",
+				"\theight: 150px;",
+				"\tborder: 1px solid #ccc;",
+				"\tpadding: 20px;",
+				"\tmargin: 10px;",
+				"\tbackground-color: #f9f9f9;",
+				"\tbox-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);",
+				"}"
+			],
+			[
+				"/* Flexbox Layout */",
+				".container {",
+				"\tdisplay: flex;",
+				"\tjustify-content: center;",
+				"\talign-items: center;",
+				"\theight: 100vh;",
+				"}",
+				".item {",
+				"\tpadding: 20px;",
+				"\tborder: 1px solid #ddd;",
+				"\tmargin: 10px;",
+				"}"
+			],
+			[
+				"/* Responsive Design */",
+				"@media (max-width: 768px) {",
+				"\t.container {",
+				"\t\tdisplay: block;",
+				"\t}",
+				"\t.item {",
+				"\t\tmargin: 5px;",
+				"\t}",
+				"}"
+			],
+			[
+				"/* CSS Animation */",
+				"@keyframes slideIn {",
+				"\t0% { transform: translateX(-100%); }",
+				"\t100% { transform: translateX(0); }",
+				"}",
+				".slider {",
+				"\tanimation: slideIn 1s ease-in-out;",
+				"}"
+			]
+		]
+	}
+}

@@ -1,0 +1,66 @@
+{
+	"nordic": {
+		"text": "#5E81AC",
+		"accent": "#88C0D0",
+		"cursor": "#81A1C1",
+		"error": "#BF616A",
+		"window": "#434C5E",
+		"background": "#2E3440"
+	},
+	"europe": {
+		"text": "#5C9EAD",
+		"accent": "#326273",
+		"cursor": "#EEEEEE",
+		"error": "#E39774",
+		"window": "#FFFFFF",
+		"background": "#EEEEEE"
+	},
+	"blackpink": {
+		"text": "#D9D0DE",
+		"accent": "#BC8DA0",
+		"cursor": "#A04668",
+		"error": "#AB4967",
+		"window": "#0C1713",
+		"background": "#A04668"
+	},
+	"garden": {
+		"text": "#635255",
+		"accent": "#1A281F",
+		"cursor": "#C0E8F9",
+		"error": "#CE7B91",
+		"window": "#B8D3D1",
+		"background": "#C0E8F9"
+	},
+	"classy": {
+		"text": "#22333B",
+		"accent": "#0A0908",
+		"cursor": "#5E503F",
+		"error": "#A9927D",
+		"window": "#F2F4F3",
+		"background": "#5E503F"
+	},
+	"lollypop": {
+		"text": "#83C5BE",
+		"accent": "#006D77",
+		"cursor": "#EDF6F9",
+		"error": "#E29578",
+		"window": "#FFDDD2",
+		"background": "#EDF6F9"
+	},
+	"hacker": {
+		"text": "#649568",
+		"accent": "#9ccc9c",
+		"cursor": "#2b5329",
+		"error": "#FF0000",
+		"window": "#000",
+		"background": "#2b5329"
+	},
+	"summer": {
+		"text": "#FFD25A",
+		"accent": "#FFAA5A",
+		"cursor": "#FF785A",
+		"error": "#FFF05A",
+		"window": "#191919",
+		"background": "#FF785A"
+	}
+}
