@@ -400,5 +400,32 @@
 				"}"
 			]
 		]
+	},
+	"text": {
+		"general": [
+			[
+				"5 Essential Cybersecurity Tips for Small Businesses",
+				"Protect your business from cyber threats: use strong passwords, update software, train employees, install firewalls, and back up data regularly."
+			],
+			[
+				"The Rise of 5G: Transforming the Future of Connectivity",
+				"Explore how 5G technology enables faster speeds, low latency, and supports IoT, autonomous vehicles, and augmented reality applications."
+			],
+			[
+				"AI in Healthcare: Revolutionizing Patient Diagnoses",
+				"Discover how artificial intelligence is reshaping healthcare through accurate diagnostics, personalized treatment plans, and efficient patient care."
+			],
+			[
+				"Blockchain Simplified: Applications Beyond Cryptocurrency",
+				"Beyond Bitcoin, blockchain secures supply chains, digital identities, and facilitates transparent voting systems, promising innovation across industries."
+			],
+			[
+				"The Eco-Friendly Tech Revolution: Greening the IT Industry",
+				"Learn about sustainable tech practices, energy-efficient data centers, electronic recycling, and the role of renewable energy in reducing the tech industry's carbon footprint."
+			]
+		]
+	},
+	"test": {
+		"test": [["Hola", "mundo", "!"], ["Hello", "World", "!"], ["Bonjour", "le", "monde", "!"]]
 	}
 }
