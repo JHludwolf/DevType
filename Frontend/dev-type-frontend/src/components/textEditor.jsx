@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "../style/home/textEditor.css";
 import { FaArrowTurnDown } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import LoadingText from "./loadingText";
 
 const TextEditor = ({ text }) => {
 	// Validate the props
@@ -154,7 +155,7 @@ const TextEditor = ({ text }) => {
 				onBlur={(e) => e.target.focus()}
 				spellCheck="false"
 			/>
-			<div className="text-div">{getFormatedText()}</div>
+			<div className="text-div">{text ? getFormatedText() : <LoadingText />}</div>
 		</div>
 	);
 };
