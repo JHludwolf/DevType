@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/home/textEditor.css";
 import { FaArrowTurnDown } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
 const TextEditor = ({ text }) => {
-	
 	const [input, setInput] = useState("");
 	const colors = useSelector((state) => state.theme.colors);
+	const [isEndOfLine, setIsEndOfLine] = useState(false);
 
 	const handleTextChange = (e) => {
 		setInput(e.target.value);
@@ -25,6 +25,13 @@ const TextEditor = ({ text }) => {
 		) {
 			event.preventDefault();
 		}
+
+		// If enter is pressed and the cursor is at the end of the line
+		if (event.key === "Enter" && !isEndOfLine) {
+			event.preventDefault();
+		} else if (isEndOfLine && event.key !== "Enter" && event.key !== "Backspace") {
+			event.preventDefault();
+		}
 	};
 
 	const getTabs = (line) => {
@@ -37,6 +44,18 @@ const TextEditor = ({ text }) => {
 		}
 	};
 
+	useEffect(() => {
+		for (let i = text.length - 1; i >= 0; i--) {
+			let cleantext = text[i].replaceAll("\t", "");
+			if (input.endsWith(cleantext)) {
+				setIsEndOfLine(true);
+				break;
+			} else {
+				setIsEndOfLine(false);
+			}
+		}
+	}, [input, text]);
+
 	const getFormatedText = () => {
 		const inputLines = input.split("\n");
 		const numberOfNewlines = inputLines.length - 1;
@@ -48,7 +67,7 @@ const TextEditor = ({ text }) => {
 
 					const cursorAtEndOfLine = () => {
 						if (inputLines[idx] && idx === numberOfNewlines) {
-							return inputLines[idx].length === cleanLine.length;
+							return isEndOfLine;
 						}
 						return false;
 					};
@@ -61,10 +80,7 @@ const TextEditor = ({ text }) => {
 									inputLines[idx].split("").map((char, index) => {
 										if (char === cleanLine[index]) {
 											return (
-												<span
-													key={`letter-${index}`}
-													style={{ color: colors.accent }}
-												>
+												<span key={`letter-${index}`} style={{ color: colors.accent }}>
 													{char}
 												</span>
 											);
@@ -100,7 +116,7 @@ const TextEditor = ({ text }) => {
 								</span>
 								{cursorAtEndOfLine() ? (
 									<span className="enter-icon-span">
-										<FaArrowTurnDown className="enter-icon" style={{color: colors.accent}}/>
+										<FaArrowTurnDown className="enter-icon" style={{ color: colors.accent }} />
 									</span>
 								) : (
 									<></>
@@ -114,7 +130,7 @@ const TextEditor = ({ text }) => {
 	};
 
 	return (
-		<div className="text-editor-div" style={{backgroundColor: colors.window}}>
+		<div className="text-editor-div" style={{ backgroundColor: colors.window }}>
 			<textarea
 				value={input}
 				onChange={handleTextChange}
