@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import "../style/home/textEditor.css";
 import { FaArrowTurnDown } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
 const TextEditor = ({ text }) => {
+	// Validate the props
 	const [input, setInput] = useState("");
 	const colors = useSelector((state) => state.theme.colors);
 	const [isEndOfLine, setIsEndOfLine] = useState(false);
 
 	const handleTextChange = (e) => {
 		setInput(e.target.value);
-
-		console.log(text.join("\n"));
-		console.log(e.target.value);
 	};
 
 	const handleKeyDown = (event) => {
@@ -30,6 +29,7 @@ const TextEditor = ({ text }) => {
 		if (event.key === "Enter" && !isEndOfLine) {
 			event.preventDefault();
 		} else if (isEndOfLine && event.key !== "Enter" && event.key !== "Backspace") {
+			setIsEndOfLine(false);
 			event.preventDefault();
 		}
 	};
@@ -44,15 +44,29 @@ const TextEditor = ({ text }) => {
 		}
 	};
 
+	// Check if the cursor is at the end of the line
 	useEffect(() => {
-		for (let i = text.length - 1; i >= 0; i--) {
-			let cleantext = text[i].replaceAll("\t", "");
-			if (input.endsWith(cleantext)) {
-				setIsEndOfLine(true);
-				break;
-			} else {
-				setIsEndOfLine(false);
+		let lenghts = 0;
+
+		for (let i = 0; i < text.length; i++) {
+			let cleanLine = text[i].replaceAll("\t", "");
+
+			if (input.length !== 0) {
+				//let cleanInput = input.replaceAll("\n", "");
+
+				if (input.length === lenghts + cleanLine.length) {
+					setIsEndOfLine(true);
+					break;
+				}
+
+				/*if (isEndOfLine && input.length > lenghts + text[i].length) {
+					setInput(input.substring(0, lenghts + text[i].length) + "\n");
+					setIsEndOfLine(false);
+					break;
+				}*/
 			}
+			lenghts += cleanLine.length + 1;
+			setIsEndOfLine(false);
 		}
 	}, [input, text]);
 
@@ -143,6 +157,11 @@ const TextEditor = ({ text }) => {
 			<div className="text-div">{getFormatedText()}</div>
 		</div>
 	);
+};
+
+TextEditor.propTypes = {
+	// text is required to be array
+	text: PropTypes.array.isRequired,
 };
 
 export default TextEditor;
