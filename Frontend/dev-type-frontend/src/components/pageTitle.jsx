@@ -1,4 +1,3 @@
-import React from "react";
 import "../style/home/home.css";
 import { useSelector } from "react-redux";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "../style/home/textEditor.css";
 import { FaArrowTurnDown } from "react-icons/fa6";

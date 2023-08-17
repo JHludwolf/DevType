@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import TextEditorWindow from "../components/textEditorWindow";
 import "../style/home/home.css";
 
