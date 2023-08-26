@@ -4,7 +4,7 @@ import { RiSettings5Fill } from "react-icons/ri";
 import SettingsModal from "./settingsModal";
 import { useSelector } from "react-redux";
 
-const TextEditorWindow = ({ text }) => {
+const TextEditorWindow = ({ text, displayTime }) => {
 	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 	const colors = useSelector((state) => state.theme.colors);
 
@@ -62,7 +62,7 @@ const TextEditorWindow = ({ text }) => {
 					</tbody>
 				</table>
 			</div>
-			<TextEditor text={text} />
+			<TextEditor text={text} displayTime={displayTime} />
 			{isSettingsOpen ? <SettingsModal toggleModal={toggleModal} /> : null}
 		</div>
 	);

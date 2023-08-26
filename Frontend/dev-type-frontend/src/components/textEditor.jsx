@@ -5,17 +5,42 @@ import { FaArrowTurnDown } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import LoadingText from "./loadingText";
 
-const TextEditor = ({ text }) => {
+const TextEditor = ({ text, displayTime }) => {
 	// Validate the props
 	const [input, setInput] = useState("");
 	const colors = useSelector((state) => state.theme.colors);
+	const [prevChar, setPrevChar] = useState("");
 	const [isEndOfLine, setIsEndOfLine] = useState(false);
+	const [isTyping, setIsTyping] = useState(false);
+	
+	const [startTime, setStartTime] = useState(null);
 
 	const handleTextChange = (e) => {
 		setInput(e.target.value);
 	};
 
+	// q: How would you add a timer to count the time it takes to type the code?
+	// a: I would add a timer to the text editor component and start it when the user starts typing
+	//    and stop it when the user finishes typing. I would then pass the time to the parent component
+	//	and display it there.
+	// q: How do you pass the time to the parent component?
+	// a: I would pass a function to the text editor component that would be called when the user finishes typing
+
+	// Function to start the timer
+	const startTimer = () => {
+		const startTime = new Date();
+		setStartTime(startTime);
+	};
+
+	
+
 	const handleKeyDown = (event) => {
+		// If the user starts typing start the timer
+		if (!isTyping) {
+			startTimer();
+			setIsTyping(true);
+		}
+
 		// Prevent arrow key navigation
 		if (
 			event.key === "ArrowLeft" ||
@@ -26,13 +51,21 @@ const TextEditor = ({ text }) => {
 			event.preventDefault();
 		}
 
+		// If prevChar is a space and event.key is a space prevent default
+		if (prevChar === " " && event.key === " ") {
+			console.log("prevent double space");
+			event.preventDefault();
+		}
+
 		// If enter is pressed and the cursor is at the end of the line
 		if (event.key === "Enter" && !isEndOfLine) {
 			event.preventDefault();
-		} else if (isEndOfLine && event.key !== "Enter" && event.key !== "Backspace") {
-			setIsEndOfLine(false);
+		}
+		
+		if (isEndOfLine && event.key !== "Enter" && event.key !== "Backspace") {
 			event.preventDefault();
 		}
+		setPrevChar(event.key);
 	};
 
 	const getTabs = (line) => {
@@ -47,28 +80,37 @@ const TextEditor = ({ text }) => {
 
 	// Check if the cursor is at the end of the line
 	useEffect(() => {
-		let lenghts = 0;
+		// if input and text are the same length then the user has finished typing
+		// and the timer should stop
+		if (input.replaceAll('\n', '').length === text.join("").length) {
+			//setIsTyping(false);
+			displayTime(startTime);
+		}
 
-		for (let i = 0; i < text.length; i++) {
-			let cleanLine = text[i].replaceAll("\t", "");
+		let lengths = 0;
 
+		for (const line of text) {
+			const cleanLine = line.replaceAll("\t", "");
+		
 			if (input.length !== 0) {
-				//let cleanInput = input.replaceAll("\n", "");
-
-				if (input.length === lenghts + cleanLine.length) {
+				// const cleanInput = input.replaceAll("\n", "");
+		
+				if (input.length === lengths + cleanLine.length) {
+					console.log("end of line");
 					setIsEndOfLine(true);
 					break;
 				}
-
-				/*if (isEndOfLine && input.length > lenghts + text[i].length) {
-					setInput(input.substring(0, lenghts + text[i].length) + "\n");
+		
+				/* if (isEndOfLine && input.length > lengths + line.length) {
+					setInput(input.substring(0, lengths + line.length) + "\n");
 					setIsEndOfLine(false);
 					break;
-				}*/
+				} */
 			}
-			lenghts += cleanLine.length + 1;
+			lengths += cleanLine.length + 1;
 			setIsEndOfLine(false);
 		}
+		
 	}, [input, text]);
 
 	const getFormatedText = () => {

@@ -34,3 +34,11 @@ body {
     padding-top: 0;
     margin-top: 0;
 }
+
+.timer-tag {
+    padding: 2rem;
+    color: white;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+    font-size: 26px;
+    font-weight: 700;
+}
